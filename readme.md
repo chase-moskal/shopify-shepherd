@@ -54,19 +54,18 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 ## 📜 shepherd pagination
 
 1. ⚙️ **understanding shopify's pagination model**
-    - ✅ shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
-    - 😕 shopify *does not* support the kind of pagination that has distinct and identifiable pages, like *"page 1",* *"page 2",* etc
-    - 🤷‍♂️ this is because shopify doesn't expose the total product count, so we don't know in advanced how many pages there will be
+    - shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
+    - shopify does *not* support the kind of pagination that has distinct and identifiable pages, like *"page 1",* *"page 2",* etc
 
 1. 🛒 **paging through products**  
-    🧐 shepherd presents pagination as a javascript [async generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)  
+    shepherd presents pagination as a javascript [async generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)  
     ```ts
     // sequentially fetch every page of products
     for await (const page of shopify.products())
       console.log(page)
 
     ```
-    📄 you can use the generator manually to go page-by-page [(maybe refresh yourself on iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)  
+    you can use the generator manually to go page-by-page [(maybe refresh yourself on iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)  
     ```ts
     // or, you can use the generator manually
     const products = shopify.products()
@@ -95,7 +94,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     console.log(page2.done)
       //⮞ true
     ```
-    🧠 you can implement your own "load more" button logic with the generator  
+    you can implement your own "load more" button logic with the generator  
     ```ts
     // array of products to display to the user
     let my_product_catalog = []
