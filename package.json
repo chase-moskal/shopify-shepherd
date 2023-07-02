@@ -15,7 +15,7 @@
 		"clean": "rm -rf x && mkdir x",
 		"typescript": "tsc",
 		"importmap": "importly --host=node_modules < package-lock.json > x/importmap.json",
-		"watch": "tsc -w",
+		"start": "tsc -w",
 		"test": "exit 0"
 	},
 	"devDependencies": {

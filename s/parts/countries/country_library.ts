@@ -31,5 +31,13 @@ export class CountryLibrary extends Map<string, Country> {
 
 		return {known, unknown}
 	}
+
+	query_names(two_letter_codes: string[]) {
+		const {known, unknown} = this.query(two_letter_codes)
+		return [
+			...known.map(country => country.name),
+			...unknown,
+		]
+	}
 }
 
