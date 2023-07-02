@@ -26,6 +26,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     ```sh
     npm i shopify-shepherd
     ```
+
 1. **instance the sdk and provide your shopify credentials**
     ```ts
     import {Shopify} from "shopify-shepherd"
@@ -36,6 +37,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     })
     ```
     - in your shopify admin, you need to [create a custom storefront app](https://help.shopify.com/en/manual/apps/app-types/custom-apps) and obtain an access token there
+
 1. **fetch all products and shop info**
     ```ts
     const {
@@ -55,6 +57,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     - ✅ shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
     - 😕 shopify *does not* support the kind of pagination that has distinct and identifiable pages, like *"page 1",* *"page 2",* etc
     - 🤷‍♂️ this is because shopify doesn't expose the total product count, so we don't know in advanced how many pages there will be
+
 1. 🛒 **paging through products**  
     🧐 shepherd presents pagination as a javascript [async generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)  
     ```ts
@@ -118,12 +121,14 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     // call it again when the user presses your "load more" button
     await my_load_more_button()
     ```
+
 1. 📚 **paging through collections works the same way**
     ```ts
     // log every page of collections
     for await (const page of shopify.collections())
       console.log(page)
     ```
+
 1. 🪄 **you can use the `Shopify.all` helper to grab all pages**
     ```ts
     // grab all products
@@ -147,13 +152,15 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     - shopify provides your shippable countries in two-letter ISO-3166 alpha-2 format
     - whereas users probably want to see the full names of the countries
     - so shepherd provides a utility for that
-2. **separately import shepherd's `CountryLibrary`**
+
+1. **separately import shepherd's `CountryLibrary`**
     ```ts
     import {CountryLibrary} from "shopify-shepherd/x/countries.js"
     ```
     - the country data weighs `15 K`
     - it's an optional import, so you don't have to include that data in your bundle if you don't use it
-3. **use the country library to show pretty names to users**
+
+1. **use the country library to show pretty names to users**
     ```ts
     const countries = new CountryLibrary().query_names(shop.shipsToCountries)
 
