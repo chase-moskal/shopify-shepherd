@@ -30,11 +30,11 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     npm i shopify-shepherd
     ```
 
-1. 🆕 **instance the sdk, providing your shopify credentials**
+1. 🔑 **setup with your shopify credentials**
     ```ts
     import {Shopify} from "shopify-shepherd"
 
-    const shopify = Shopify.make({
+    const shopify = Shopify.setup({
       domain: "dev-bakery.myshopify.com",
       storefront_access_token: "5f636be6b04aeb2a7b96fe9306386f25",
     })
@@ -47,7 +47,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
       shop,
       products,
       collections,
-    } = await shopify.fetch_everything_cool()
+    } = await shopify.fetch_everything()
     ```
     - this is a simple convenience function for no-nonsense folk who want a simple one-push button
     - all fully typed -- you are welcome

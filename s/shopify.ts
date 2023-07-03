@@ -14,7 +14,7 @@ import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/qu
 export class Shopify {
 	remote: Remote
 
-	static make(settings: ShopifySettings) {
+	static setup(settings: ShopifySettings) {
 		return new this(new Remote(settings))
 	}
 
@@ -115,7 +115,7 @@ export class Shopify {
 		)).productRecommendations
 	}
 
-	async fetch_everything_cool() {
+	async fetch_everything() {
 		const [shop, products, collections] = await Promise.all([
 			this.shop(),
 			Shopify.all(this.products()),
