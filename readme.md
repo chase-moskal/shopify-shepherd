@@ -5,13 +5,16 @@
 
 ### *unofficial frontend js sdk for shopify*
 
-📦 `npm i shopify-shepherd`  
+shopify-shepherd makes it easy to communicate with the shopify storefront api from in-browser javascript.  
+you can build a whole shopping experience for your users, all in-browser, without running any backend api services yourself.
+
 ♻️ replaces the official [shopify-buy sdk](https://www.npmjs.com/package/shopify-buy)  
 🐏 powers [sheep-cart](https://github.com/chase-moskal/sheep-cart#readme) store ui  
 🛡️ written in typescript  
 🗿 zero dependencies  
 🤝 extensible and open to pull requests  
 💖 free and open source  
+📦 `npm i shopify-shepherd`  
 
 <br/>
 
@@ -22,12 +25,12 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 
 ## 🕹️ how to use shepherd
 
-1. **install shopify-shepherd**
+1. 📦 **install shopify-shepherd**
     ```sh
     npm i shopify-shepherd
     ```
 
-1. **instance the sdk, providing your shopify credentials**
+1. 🆕 **instance the sdk, providing your shopify credentials**
     ```ts
     import {Shopify} from "shopify-shepherd"
 
@@ -38,7 +41,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     ```
     - in your shopify admin, you need to [create a custom storefront app](https://help.shopify.com/en/manual/apps/app-types/custom-apps) and obtain an access token there
 
-1. **fetch all products and shop info**
+1. 📥 **fetch all products and shop info**
     ```ts
     const {
       shop,
@@ -53,7 +56,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 
 ## 📜 shepherd pagination
 
-1. ⚙️ **understanding shopify's pagination model**
+1. 📄 **understanding shopify's pagination model**
     - shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
     - shopify does *not* support the kind of pagination that has distinct and identifiable pages, like *"page 1",* *"page 2",* etc
 
@@ -110,7 +113,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 
 ## 🌎 shepherd knows about countries
 
-1. **fetch your shop info**  
+1. 📥 **fetch your shop info**  
     ```ts
     const shop = await shopify.shop()
 
@@ -121,19 +124,19 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     - but users probably want to see the full names of the countries
     - so shepherd provides a utility for that
 
-1. **separately import shepherd's `CountryLibrary`**
+1. ⏳ **separately import shepherd's `CountryLibrary`**
     ```ts
     import {CountryLibrary} from "shopify-shepherd/x/countries.js"
     ```
     - the country data weighs `15 K`
     - it's an optional import, so you can choose if you want to bring that data into your bundle
 
-1. **use the country library to show pretty names to users**
+1. 💅 **use the country library to show pretty names to users**
     ```ts
     const countries = new CountryLibrary().query_names(shop.shipsToCountries)
 
     console.log("countries we ship to: " + countries.join(", "))
       //⮞ countries we ship to: Canada, United States of America, Mexico, XX
     ```
-    - 🤷‍♂️ sometimes shopify provides two-letter codes that are not in the [ISO-3166 data](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes) we're using -- so you might get some two-letter codes at the end of the list
+    - 🤷 sometimes shopify provides two-letter codes that are not in the [ISO-3166 data](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes) we're using -- so you might get some two-letter codes at the end of the list
     - if you need more control, you can use [query](./s/parts/countries/country_library.ts#L19) instead of `query_names`
