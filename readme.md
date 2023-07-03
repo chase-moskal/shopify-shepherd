@@ -3,14 +3,13 @@
 
 # 🙚 shopify-shepherd 🙘
 
-### *unofficial frontend js sdk for shopify*
+### *unofficial shopify frontend js sdk*
 
-shopify-shepherd makes it easy to communicate with the shopify storefront api from in-browser javascript.  
-you can build a whole shopping experience for your users, all in-browser, without running any backend api services yourself.
+shopify-shepherd helps you build a clientside ecommerce experience.
 
 ♻️ replaces the official [shopify-buy sdk](https://www.npmjs.com/package/shopify-buy)  
 🐏 powers [sheep-cart](https://github.com/chase-moskal/sheep-cart#readme) store ui  
-🛡️ written in typescript  
+🛡️ fully typed, and written in typescript  
 🗿 zero dependencies  
 🤝 extensible and open to pull requests  
 💖 free and open source  
@@ -41,7 +40,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     ```
     - in your shopify admin, you need to [create a custom storefront app](https://help.shopify.com/en/manual/apps/app-types/custom-apps) and obtain an access token there
 
-1. 📥 **fetch all products and shop info**
+1. 📥 **fetch basically everything in your store**
     ```ts
     const {
       shop,
@@ -49,12 +48,11 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
       collections,
     } = await shopify.fetch_everything()
     ```
-    - this is a simple convenience function for no-nonsense folk who want a simple one-push button
-    - all fully typed -- you are welcome
+    - this is a convenience function for no-nonsense folks
 
 <br/>
 
-## 📜 shepherd pagination
+## 📜 shepherd's genius-tier pagination
 
 1. 📄 **understanding shopify's pagination model**
     - shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
@@ -67,7 +65,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     for await (const page of shopify.products())
       console.log(page)
     ```
-    manually go page-by-page [(refresh yourself on iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)  
+    manually go page-by-page [(refresh yourself on js iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)  
     ```ts
     // use the generator manually
     const products = shopify.products({page_size: 50})
