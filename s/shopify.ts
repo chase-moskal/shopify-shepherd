@@ -10,6 +10,7 @@ import {make_request_for_products} from "./requests/products.js"
 import {make_request_for_collections} from "./requests/collections.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
+import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
 
 export class Shopify {
 	remote: Remote
@@ -34,10 +35,12 @@ export class Shopify {
 	}
 
 	async *products({
-			page_size = default_page_size,
+			query,
 			image_format = "WEBP",
+			page_size = default_page_size,
 		}: {
 			page_size?: number
+			query?: ProductQuerySpec
 			image_format?: ImageFormat
 		} = {}): AsyncGenerator<Product[]> {
 
@@ -47,6 +50,7 @@ export class Shopify {
 					after,
 					page_size,
 					image_format,
+					query: convert_product_query_spec_to_string(query),
 				})
 			)).products
 		)
