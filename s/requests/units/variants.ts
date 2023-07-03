@@ -1,5 +1,6 @@
 
 import {gql} from "../../utils/gql.js"
+import { GqlEdges, edges } from "./edges.js"
 
 export function variants() {
 
@@ -8,36 +9,62 @@ export function variants() {
 
 	return gql`
 		variants(first: 250) {
-			edges {
-				node {
+			${edges(gql`
 
-					id
-					title
-					availableForSale
-					currentlyNotInStock
+				id
+				title
+				availableForSale
+				currentlyNotInStock
 
-					price {
-						amount
-						currencyCode
-					}
-
-					compareAtPrice {
-						amount
-						currencyCode
-					}
-
-					image {
-						id
-					}
-
-					selectedOptions {
-						name
-						value
-					}
-
+				price {
+					amount
+					currencyCode
 				}
-			}
+
+				compareAtPrice {
+					amount
+					currencyCode
+				}
+
+				image {
+					id
+				}
+
+				selectedOptions {
+					name
+					value
+				}
+
+			`)}
 		}
 	`
+}
+
+export type GqlPrice = {
+	amount: string
+	currencyCode: string
+}
+
+export type GqlVariant = {
+	id: string
+	title: string
+	availableForSale: boolean
+	currentlyNotInStock: boolean
+
+	price: GqlPrice
+	compareAtPrice: GqlPrice
+
+	image: {
+		id: string
+	}
+
+	selectedOptions: {
+		name: string
+		value: string
+	}[]
+}
+
+export type GqlVariants = {
+	variants: GqlEdges<GqlVariant>
 }
 

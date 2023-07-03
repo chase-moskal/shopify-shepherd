@@ -1,15 +1,12 @@
 
-import {Shop} from "./types/shop.js"
-import {Product} from "./types/product.js"
 import {Remote} from "./parts/remote/remote.js"
-import {Collection} from "./types/collection.js"
 import {ImageFormat} from "./requests/units/image.js"
 import {paginate} from "./parts/pagination/paginate.js"
-import {make_request_for_shop} from "./requests/shop.js"
-import {make_request_for_products} from "./requests/products.js"
-import {make_request_for_collections} from "./requests/collections.js"
+import {GqlShop, make_request_for_shop} from "./requests/shop.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
+import {GqlProduct, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
+import {GqlCollection, make_request_for_collections} from "./requests/collections.js"
 import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
 
 export class Shopify {
@@ -30,7 +27,7 @@ export class Shopify {
 		this.remote = remote
 	}
 
-	async shop(): Promise<Shop> {
+	async shop(): Promise<GqlShop> {
 		return this.remote.request(make_request_for_shop())
 	}
 
@@ -42,9 +39,9 @@ export class Shopify {
 			page_size?: number
 			query?: ProductQuerySpec
 			image_format?: ImageFormat
-		} = {}): AsyncGenerator<Product[]> {
+		} = {}) {
 
-		yield* paginate(
+		yield* paginate<GqlProduct>(
 			async({after}) => (await this.remote.request(
 				make_request_for_products({
 					after,
@@ -62,9 +59,9 @@ export class Shopify {
 		}: {
 			page_size?: number
 			image_format?: ImageFormat
-		} = {}): AsyncGenerator<Collection[]> {
+		} = {}) {
 
-		yield* paginate(
+		yield* paginate<GqlCollection>(
 			async({after}) => (await this.remote.request(
 				make_request_for_collections({
 					after,

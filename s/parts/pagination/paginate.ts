@@ -1,12 +1,7 @@
 
 import {Fetcher} from "./types/fetcher.js"
-import {GqlEdge} from "./types/gql_edge.js"
 
-export function unwrap<N = any>({edges}: {edges: GqlEdge<N>[]}) {
-	return edges.map(e => e.node)
-}
-
-export async function *paginate<R = any>(fetch: Fetcher<R>) {
+export async function *paginate<N>(fetch: Fetcher<N>) {
 	let after: string | undefined
 	let fetch_count = 0
 	const there_are_more_pages = () => ((fetch_count === 0) || after)
@@ -14,11 +9,9 @@ export async function *paginate<R = any>(fetch: Fetcher<R>) {
 	while (there_are_more_pages()) {
 		fetch_count += 1
 		const result = await fetch({after})
-		const {pageInfo: {hasNextPage, endCursor}} = result
+		const {edges, pageInfo: {hasNextPage, endCursor}} = result
 		after = hasNextPage ?endCursor :undefined
-		yield unwrap(result)
+		yield edges.map(edge => edge.node)
 	}
 }
-
-paginate.unwrap = unwrap
 
