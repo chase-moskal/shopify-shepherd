@@ -25,7 +25,7 @@ export function make_request_for_products({
 	return {
 		query: gql`
 			query FetchProducts($first: Int!, $after: String, $query: String) {
-				products(first: $first, after: $after) {
+				products(first: $first, after: $after, query: $query) {
 					${paginated(gql`
 
 						availableForSale
