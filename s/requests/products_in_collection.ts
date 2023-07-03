@@ -22,7 +22,7 @@ export function make_request_for_products_in_collection({
 		query: gql`
 			query FetchProductsInCollection($first: Int!, $collection_id: String!, $after: String) {
 				collection(id: $collection_id) {
-					products(first: $first) {
+					products(first: $first, filters: {available: true}) {
 						${paginated(product({image_format}))}
 					}
 				}
