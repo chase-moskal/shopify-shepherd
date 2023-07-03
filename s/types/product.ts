@@ -3,7 +3,7 @@ import {Seo} from "./seo.js"
 import {Image} from "./image.js"
 
 export type Product = {
-	collections: {id: string}[]
+	collections: string[]
 	images: Image[]
 	seo: Seo
 
@@ -23,5 +23,10 @@ export type Product = {
 	totalInventory: number
 	updatedAt: string
 	vendor: string
+
+	options: {
+		name: string
+		values: string[]
+	}
 }
 

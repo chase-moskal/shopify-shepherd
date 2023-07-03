@@ -12,24 +12,22 @@ export function variants() {
 				node {
 
 					id
-					availableForSale
-					barcode
-					currentlyNotInStock
-					id
 					title
-
-					image {
-						id
-					}
-
-					compareAtPrice {
-						currencyCode
-						amount
-					}
+					availableForSale
+					currentlyNotInStock
 
 					price {
 						amount
 						currencyCode
+					}
+
+					compareAtPrice {
+						amount
+						currencyCode
+					}
+
+					image {
+						id
 					}
 
 					selectedOptions {

@@ -45,7 +45,6 @@ export function make_request_for_products({
 							vendor
 
 							options(first: 250) {
-								id
 								name
 								values
 							}
