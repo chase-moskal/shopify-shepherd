@@ -8,6 +8,7 @@ import {GqlProducts, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
 import {GqlCollections, make_request_for_collections} from "./requests/collections.js"
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./requests/products_in_collection.js"
+import {GqlProductRecommendations, make_request_for_product_recommendations} from "./requests/product_recommendations.js"
 import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
 
 export class Shopify {
@@ -93,6 +94,25 @@ export class Shopify {
 				})
 			)).collection.products
 		)
+	}
+
+	async product_recommendations({
+			intent,
+			product_id,
+			image_format = "WEBP",
+		}: {
+			product_id: string
+			image_format?: ImageFormat
+			intent?: "RELATED" | "COMPLEMENTARY"
+		}) {
+
+		return (await this.remote.request<GqlProductRecommendations>(
+			make_request_for_product_recommendations({
+				intent,
+				product_id,
+				image_format,
+			})
+		)).productRecommendations
 	}
 
 	async fetch_everything_cool() {

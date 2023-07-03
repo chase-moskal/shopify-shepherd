@@ -20,9 +20,9 @@ export function make_request_for_products_in_collection({
 
 	return {
 		query: gql`
-			query FetchProductsInCollection($first: Int!, $collection_id: String!, $after: String) {
+			query FetchProductsInCollection($first: Int!, $collection_id: ID!, $after: String) {
 				collection(id: $collection_id) {
-					products(first: $first, filters: {available: true}) {
+					products(first: $first, filters: {available: true}, after: $after) {
 						${paginated(product({image_format}))}
 					}
 				}
