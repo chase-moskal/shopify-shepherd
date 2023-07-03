@@ -4,9 +4,10 @@ import {ImageFormat} from "./requests/units/image.js"
 import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
-import {GqlProduct, make_request_for_products} from "./requests/products.js"
+import {GqlProducts, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
-import {GqlCollection, make_request_for_collections} from "./requests/collections.js"
+import {GqlCollections, make_request_for_collections} from "./requests/collections.js"
+import {GqlProductsInCollection, make_request_for_products_in_collection} from "./requests/products_in_collection.js"
 import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
 
 export class Shopify {
@@ -41,8 +42,8 @@ export class Shopify {
 			image_format?: ImageFormat
 		} = {}) {
 
-		yield* paginate<GqlProduct>(
-			async({after}) => (await this.remote.request(
+		yield* paginate(
+			async({after}) => (await this.remote.request<GqlProducts>(
 				make_request_for_products({
 					after,
 					page_size,
@@ -61,14 +62,36 @@ export class Shopify {
 			image_format?: ImageFormat
 		} = {}) {
 
-		yield* paginate<GqlCollection>(
-			async({after}) => (await this.remote.request(
+		yield* paginate(
+			async({after}) => (await this.remote.request<GqlCollections>(
 				make_request_for_collections({
 					after,
 					page_size,
 					image_format,
 				})
 			)).collections
+		)
+	}
+
+	async *products_in_collection({
+			collection_id,
+			page_size = default_page_size,
+			image_format = "WEBP",
+		}: {
+			collection_id: string
+			page_size?: number
+			image_format?: ImageFormat
+		}) {
+
+		yield* paginate(
+			async({after}) => (await this.remote.request<GqlProductsInCollection>(
+				make_request_for_products_in_collection({
+					collection_id,
+					after,
+					page_size,
+					image_format,
+				})
+			)).collection.products
 		)
 	}
 

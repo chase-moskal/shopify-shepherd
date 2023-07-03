@@ -1,6 +1,7 @@
 
 import {gql} from "../../utils/gql.js"
-import { GqlEdges, edges } from "./edges.js"
+import {GqlEdges, edges} from "./edges.js"
+import {default_page_size} from "../../parts/remote/defaults/default_page_size.js"
 
 export function variants() {
 
@@ -8,7 +9,7 @@ export function variants() {
 	//  - https://community.shopify.com/c/hydrogen-headless-and-storefront/need-unauthenticated-read-product-inventory-to-access/td-p/1955913
 
 	return gql`
-		variants(first: 250) {
+		variants(first: ${default_page_size}) {
 			${edges(gql`
 
 				id
