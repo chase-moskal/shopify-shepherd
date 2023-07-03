@@ -6,38 +6,40 @@ import {GqlProduct, product} from "./units/product.js"
 import {GqlPaginated, paginated} from "./units/paginated.js"
 import {default_page_size} from "../parts/remote/defaults/default_page_size.js"
 
-export function make_request_for_products({
-		query,
+export function make_request_for_products_in_collection({
+		collection_id,
 		after,
 		image_format = "WEBP",
 		page_size = default_page_size,
 	}: {
-		query?: string
+		collection_id: string
 		after?: string
 		page_size?: number
 		image_format?: ImageFormat
 	}): GraphRequest {
 
-
 	return {
 		query: gql`
-			query FetchProducts($first: Int!, $after: String, $query: String) {
-				products(first: $first, after: $after, query: $query) {
-					${paginated(product({image_format}))}
+			query FetchProductsInCollection($first: Int!, $collection_id: ID!, $after: String) {
+				collection(id: $collection_id) {
+					products(first: $first, filters: {available: true}, after: $after) {
+						${paginated(product({image_format}))}
+					}
 				}
 			}
 		`,
 
 		variables: {
-			query,
+			collection_id,
 			after,
 			first: page_size,
 		},
 	}
 }
 
-
-export type GqlProducts = {
-	products: GqlPaginated<GqlProduct>
+export type GqlProductsInCollection = {
+	collection: {
+		products: GqlPaginated<GqlProduct>
+	}
 }
 

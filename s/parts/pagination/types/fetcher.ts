@@ -1,10 +1,6 @@
 
-import {GqlEdge} from "./gql_edge.js"
-import {PageInfo} from "./page_info.js"
 import {PagingDetails} from "./paging_details.js"
+import {GqlPaginated} from "../../../requests/units/paginated.js"
 
-export type Fetcher<N> = ({}: PagingDetails) => Promise<{
-	edges: GqlEdge<N>[]
-	pageInfo: PageInfo
-}>
+export type Fetcher<N> = ({}: PagingDetails) => Promise<GqlPaginated<N>>
 

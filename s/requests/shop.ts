@@ -20,3 +20,13 @@ export function make_request_for_shop(): GraphRequest {
 	}
 }
 
+export type GqlShop = {
+	name: string
+	description: string
+	shipsToCountries: string[]
+	paymentSettings: {
+		currencyCode: string
+		countryCode: string
+	}
+}
+

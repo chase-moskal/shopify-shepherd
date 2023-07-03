@@ -10,7 +10,7 @@ export class Remote {
 		this.#settings = settings
 	}
 
-	async request({query, variables}: {
+	async request<R>({query, variables}: {
 			query: string
 			variables?: {[key: string]: any}
 		}) {
@@ -48,7 +48,7 @@ export class Remote {
 			for (const error of result.errors)
 				throw new ShopifyResponseError(error)
 
-		return result.data
+		return result.data as R
 	}
 }
 
