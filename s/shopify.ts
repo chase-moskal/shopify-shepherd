@@ -14,6 +14,10 @@ import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/qu
 export class Shopify {
 	remote: Remote
 
+	constructor(remote: Remote) {
+		this.remote = remote
+	}
+
 	static setup(settings: ShopifySettings) {
 		return new this(new Remote(settings))
 	}
@@ -23,10 +27,6 @@ export class Shopify {
 		for await (const items of generator)
 			all.push(items)
 		return all.flat()
-	}
-
-	constructor(remote: Remote) {
-		this.remote = remote
 	}
 
 	async shop(): Promise<GqlShop> {
