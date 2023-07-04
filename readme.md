@@ -3,9 +3,8 @@
 
 # 🙚 shopify-shepherd 🙘
 
-### *unofficial shopify frontend js sdk*
-
-shopify-shepherd helps you build a clientside ecommerce experience.
+**unofficial shopify frontend js sdk**  
+shopify-shepherd helps you build a clientside ecommerce experience  
 
 ♻️ replaces the official [shopify-buy sdk](https://www.npmjs.com/package/shopify-buy)  
 🐏 powers [sheep-cart](https://github.com/chase-moskal/sheep-cart#readme) store ui  
@@ -17,8 +16,8 @@ shopify-shepherd helps you build a clientside ecommerce experience.
 
 <br/>
 
-**but why not just use shopify's official sdk?**  
-it's poorly maintained, semi-abandoned, and missing features that i need for building [sheep-cart](https://github.com/chase-moskal/sheep-cart#readme).
+*but why not just use shopify's official sdk?*  
+it's poorly maintained, semi-abandoned, and missing features that i need for building [sheep-cart](https://github.com/chase-moskal/sheep-cart#readme).  
 
 <br/>
 
@@ -54,39 +53,39 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 
 ## 📋 shopify-shepherd by example
 
-- fetch basically everything
+- **fetch basically everything**
   ```ts
   const everything = await shopify.fetch_everything()
   ```
-- fetch info about your shop
+- **fetch info about your shop**
   ```ts
   const shop = await shopify.shop()
   ```
-- fetch all products
+- **fetch all products**
   ```ts
   const products = await Shopify.all(shopify.products())
   ```
-- fetch all collections
+- **fetch all collections**
   ```ts
   const collections = await Shopify.all(shopify.collections())
   ```
-- loop through every page of products
+- **loop through every page of products**
   ```ts
   for await (const page of shopify.products())
     console.log("page of products", page)
   ```
-- loop through every page of collections
+- **loop through every page of collections**
   ```ts
   for await (const page of shopify.collections())
     console.log("page of collections", page)
   ```
-- fetch all products in a specific collection
+- **fetch all products in a specific collection**
   ```ts
   const products = await Shopify.all(shopify.products_in_collection({
     collection_id: "gid://shopify/Collection/270755627086",
   }))
   ```
-- search for products
+- **search for products**
   ```ts
   const products = await Shopify.all(shopify.products({
     query: {
@@ -99,7 +98,7 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     },
   }))
   ```
-- fetch product recommendations
+- **fetch product recommendations**
   ```ts
   const products = await shopify.product_recommendations({
     product_id: "gid://shopify/Product/6606268268622",
