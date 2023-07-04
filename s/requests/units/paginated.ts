@@ -2,18 +2,27 @@
 import {GqlEdges} from "./edges.js"
 import {gql} from "../../utils/gql.js"
 
-export const paginated = (node: string) => gql`
+const pageInfo = () => gql`
+	pageInfo {
+		hasNextPage
+		endCursor
+	}
+`
 
+export const paginated = (node: string) => gql`
 	edges {
 		node {
 			${node}
 		}
 	}
+	${pageInfo()}
+`
 
-	pageInfo {
-		hasNextPage
-		endCursor
+export const paginated_node = () => gql`
+	edges {
+		node
 	}
+	${pageInfo()}
 `
 
 export type GqlPaginated<N> = GqlEdges<N> & {

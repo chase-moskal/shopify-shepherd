@@ -1,4 +1,5 @@
 
+import {GqlTags} from "./requests/tags.js"
 import {Remote} from "./parts/remote/remote.js"
 import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
@@ -72,6 +73,22 @@ export class Shopify {
 					image_format,
 				})
 			)).collections
+		)
+	}
+
+	async *tags({
+			page_size = default_page_size,
+		}: {
+			page_size?: number
+		} = {}) {
+
+		yield* paginate(
+			async({after}) => (await this.remote.request<GqlTags>(
+				make_request_for_collections({
+					after,
+					page_size,
+				})
+			)).productTags
 		)
 	}
 

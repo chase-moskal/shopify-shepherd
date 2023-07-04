@@ -69,6 +69,10 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
   ```ts
   const collections = await Shopify.all(shopify.collections())
   ```
+- **fetch all tags**
+  ```ts
+  const tags = await Shopify.all(shopify.tags())
+  ```
 - **loop through every page of products**
   ```ts
   for await (const page of shopify.products())
