@@ -1,5 +1,6 @@
 
 import {Remote} from "./parts/remote/remote.js"
+import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
 import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
@@ -115,18 +116,12 @@ export class Shopify {
 		)).productRecommendations
 	}
 
-	async fetch_everything() {
-		const [shop, products, collections] = await Promise.all([
-			this.shop(),
-			Shopify.all(this.products()),
-			Shopify.all(this.collections()),
-		])
-
-		return {
-			shop,
-			products,
-			collections,
-		}
+	async everything() {
+		return concurrent({
+			shop: this.shop(),
+			products: Shopify.all(this.products()),
+			collections: Shopify.all(this.collections()),
+		})
 	}
 }
 
