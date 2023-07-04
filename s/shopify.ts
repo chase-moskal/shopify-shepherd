@@ -1,10 +1,10 @@
 
-import {GqlTags} from "./requests/tags.js"
 import {Remote} from "./parts/remote/remote.js"
 import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
 import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
+import {GqlTags, make_request_for_tags} from "./requests/tags.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
 import {GqlProducts, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
@@ -82,14 +82,11 @@ export class Shopify {
 			page_size?: number
 		} = {}) {
 
-		yield* paginate(
-			async({after}) => (await this.remote.request<GqlTags>(
-				make_request_for_collections({
-					after,
-					page_size,
-				})
-			)).productTags
+		const result = await this.remote.request<GqlTags>(
+			make_request_for_tags({page_size})
 		)
+
+		yield result.productTags.edges.map(e => e.node)
 	}
 
 	async *products_in_collection({

@@ -5,24 +5,21 @@ import {GqlPaginated, paginated_node} from "./units/paginated.js"
 import {default_page_size} from "../parts/remote/defaults/default_page_size.js"
 
 export function make_request_for_tags({
-		after,
 		page_size = default_page_size,
 	}: {
-		after?: string
 		page_size?: number
 	}): GraphRequest {
-
 	return {
+
 		query: gql`
-			query FetchTags($first: Int!, $after: String) {
-				productTags(first: $first, after: $after) {
+			query FetchTags($first: Int!) {
+				productTags(first: $first) {
 					${paginated_node()}
 				}
 			}
 		`,
 
 		variables: {
-			after,
 			first: page_size,
 		},
 	}
