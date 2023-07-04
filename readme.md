@@ -52,60 +52,91 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 
 <br/>
 
+## 📋 shopify-shepherd by example
+
+- fetch basically everything
+  ```ts
+  const everything = await shopify.fetch_everything()
+  ```
+- fetch info about your shop
+  ```ts
+  const shop = await shopify.shop()
+  ```
+- fetch all products
+  ```ts
+  const products = await Shopify.all(shopify.products())
+  ```
+- fetch all collections
+  ```ts
+  const collections = await Shopify.all(shopify.collections())
+  ```
+- loop through every page of products
+  ```ts
+  for await (const page of shopify.products())
+    console.log("page of products", page)
+  ```
+- loop through every page of collections
+  ```ts
+  for await (const page of shopify.collections())
+    console.log("page of collections", page)
+  ```
+- fetch all products in a specific collection
+  ```ts
+  const products = await Shopify.all(shopify.products_in_collection({
+    collection_id: "gid://shopify/Collection/270755627086",
+  }))
+  ```
+- search for products
+  ```ts
+  const products = await Shopify.all(shopify.products({
+    query: {
+
+      // products must have both of these terms in the title
+      terms: ["crunchy", "pakora"],
+
+      // products must have both of these tags
+      tags: ["appetizer", "indian"],
+    },
+  }))
+  ```
+- fetch product recommendations
+  ```ts
+  const products = await shopify.product_recommendations({
+    product_id: "gid://shopify/Product/6606268268622",
+  })
+  ```
+
+<br/>
+
 ## 📜 shepherd's genius-tier pagination
 
-1. 📄 **understanding shopify's pagination model**
-    - shopify supports the kind of pagination that is good for a *"load more" or "next page"* button (or the on-scroll kind)
-    - shopify does *not* support the kind of pagination that has distinct and identifiable pages, like *"page 1",* *"page 2",* etc
+1. 🤔 **understanding shopify's pagination model**
+    - shopify supports the kind of pagination that is good for a "load more" button (or the on-scroll kind)
+    - shopify does *not* support the kind of pagination that has distinct and identifiable pages, like "page 1", "page 2", etc
 
-1. 🛒 **paging through products**  
-    shepherd presents pagination with javascript [async generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)  
-    ```ts
-    // sequentially fetch every page of products
-    for await (const page of shopify.products())
-      console.log(page)
-    ```
-    manually go page-by-page [(refresh yourself on js iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)  
-    ```ts
-    // use the generator manually
-    const products = shopify.products({page_size: 50})
-    const page1 = await products.next()
-    console.log(page1.value) //⮞ [{id: "a1", ...}, ...]
-    console.log(page1.done) //⮞ false
-    const page2 = await.products.next()
-    ```
-    implement your own "load more" button logic  
-    ```ts
-    let my_product_catalog = []
-    let there_are_more_pages = true
-    const products = shopify.products()
-
-    async function my_load_more_button() {
-      if (there_are_more_pages) {
-        const {value, done} = await products.next()
-        my_product_catalog = [...my_product_catalog, ...value]
-        there_are_more_pages = !done
-      }
-    }
-
-    await my_load_more_button() // initially load the first page
-    await my_load_more_button() // call it when the user presses the button
-    ```
-
-1. 📚 **paging through collections works the same way**
-    ```ts
-    for await (const page of shopify.collections())
-      console.log(page)
-    ```
+1. 🗐 **shepherd presents pagination with javascript [async generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)**  
+    - paging through products
+      ```ts
+      for await (const page of shopify.products({page_size: 50}))
+        console.log("page of products", page)
+      ```
+    - paging through collections
+      ```ts
+      for await (const page of shopify.collections({page_size: 50}))
+        console.log("page of collections", page)
+      ```
+    - you can also [manually go page-by-page](./docs/manual_paging.md)
+    - or you can [implement your own "load more" button logic](./docs/load_more_pages.md)
 
 1. 🪄 **fetch every page with the `Shopify.all` helper**
-    ```ts
-    // grab all products
-    const all_products = await Shopify.all(shopify.products())
-
-    // grab all collections
-    const all_collections = await Shopify.all(shopify.collections())
-    ```
+    - fetch all products
+      ```ts
+      const products = await Shopify.all(shopify.products())
+      ```
+    - fetch all collections
+      ```ts
+      const collections = await Shopify.all(shopify.collections())
+      ```
 
 <br/>
 
