@@ -16,7 +16,7 @@
 		"typescript": "tsc",
 		"importmap": "importly --host=node_modules < package-lock.json > x/importmap.json",
 		"start": "tsc -w",
-		"test": "cynic node x/parts/queries/query.test.js",
+		"test": "cynic node x/tests.test.js",
 		"test-watch": "chokidar 'x/**/*.js' -c 'npm test'"
 	},
 	"devDependencies": {
