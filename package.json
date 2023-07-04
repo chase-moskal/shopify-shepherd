@@ -1,6 +1,6 @@
 {
 	"name": "shopify-shepherd",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "unofficial shopify sdk for frontend websites",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
