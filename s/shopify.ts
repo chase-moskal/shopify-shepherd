@@ -5,6 +5,7 @@ import {ImageFormat} from "./requests/units/image.js"
 import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
 import {GqlTags, make_request_for_tags} from "./requests/tags.js"
+import {delegate_async_generator} from "./utils/delegate_generator.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
 import {GqlProducts, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
@@ -35,7 +36,7 @@ export class Shopify {
 		return this.remote.request(make_request_for_shop())
 	}
 
-	async *products({
+	products({
 			query,
 			image_format = "WEBP",
 			page_size = default_page_size,
@@ -45,7 +46,7 @@ export class Shopify {
 			image_format?: ImageFormat
 		} = {}) {
 
-		yield* paginate(
+		return delegate_async_generator(paginate(
 			async({after}) => (await this.remote.request<GqlProducts>(
 				make_request_for_products({
 					after,
@@ -54,10 +55,10 @@ export class Shopify {
 					query: convert_product_query_spec_to_string(query),
 				})
 			)).products
-		)
+		))
 	}
 
-	async *collections({
+	collections({
 			page_size = default_page_size,
 			image_format = "WEBP",
 		}: {
@@ -65,7 +66,7 @@ export class Shopify {
 			image_format?: ImageFormat
 		} = {}) {
 
-		yield* paginate(
+		return delegate_async_generator(paginate(
 			async({after}) => (await this.remote.request<GqlCollections>(
 				make_request_for_collections({
 					after,
@@ -73,7 +74,7 @@ export class Shopify {
 					image_format,
 				})
 			)).collections
-		)
+		))
 	}
 
 	async *tags({
@@ -86,10 +87,10 @@ export class Shopify {
 			make_request_for_tags({page_size})
 		)
 
-		yield result.productTags.edges.map(e => e.node)
+		return result.productTags.edges.map(e => e.node)
 	}
 
-	async *products_in_collection({
+	products_in_collection({
 			collection_id,
 			page_size = default_page_size,
 			image_format = "WEBP",
@@ -99,7 +100,7 @@ export class Shopify {
 			image_format?: ImageFormat
 		}) {
 
-		yield* paginate(
+		return delegate_async_generator(paginate(
 			async({after}) => (await this.remote.request<GqlProductsInCollection>(
 				make_request_for_products_in_collection({
 					collection_id,
@@ -108,7 +109,7 @@ export class Shopify {
 					image_format,
 				})
 			)).collection.products
-		)
+		))
 	}
 
 	async product_recommendations({
