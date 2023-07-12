@@ -18,6 +18,7 @@ export type * from "./requests/products_in_collection.js"
 export type * from "./requests/shop.js"
 export type * from "./requests/tags.js"
 
-export * from "./utils/errors.js"
 export * from "./utils/concurrent.js"
+export * from "./utils/errors.js"
+export * from "./utils/gql.js"
 
