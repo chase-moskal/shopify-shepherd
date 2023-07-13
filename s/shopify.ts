@@ -25,10 +25,12 @@ export class Shopify {
 		return new this(new Remote(settings))
 	}
 
-	static async all<T>(generator: AsyncGenerator<T[]>) {
-		const all: T[][] = []
+	static async all<Y>(generator: AsyncGenerator<Y[]>) {
+		const all: Y[][] = []
+
 		for await (const items of generator)
 			all.push(items)
+
 		return all.flat()
 	}
 
@@ -81,7 +83,7 @@ export class Shopify {
 			page_size = default_page_size,
 		}: {
 			page_size?: number
-		} = {}) {
+		} = {}): AsyncGenerator<string[]> {
 
 		const result = await this.remote.request<GqlTags>(
 			make_request_for_tags({page_size})
@@ -134,6 +136,7 @@ export class Shopify {
 	async everything() {
 		return concurrent({
 			shop: this.shop(),
+			tags: Shopify.all(this.tags()),
 			products: Shopify.all(this.products()),
 			collections: Shopify.all(this.collections()),
 		})
