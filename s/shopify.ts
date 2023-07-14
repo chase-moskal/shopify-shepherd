@@ -2,9 +2,11 @@
 import {Remote} from "./parts/remote/remote.js"
 import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
+import {GqlProduct} from "./requests/units/product.js"
 import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
 import {GqlTags, make_request_for_tags} from "./requests/tags.js"
+import {make_request_for_single_product} from "./requests/product.js"
 import {delegate_async_generator} from "./utils/delegate_generator.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
 import {GqlProducts, make_request_for_products} from "./requests/products.js"
@@ -36,6 +38,15 @@ export class Shopify {
 
 	async shop(): Promise<GqlShop> {
 		return this.remote.request(make_request_for_shop())
+	}
+
+	async product({id, image_format = "WEBP"}: {
+			id: string
+			image_format?: ImageFormat
+		}) {
+		return this.remote.request<GqlProduct>(
+			make_request_for_single_product({id, image_format})
+		)
 	}
 
 	products({
@@ -80,7 +91,7 @@ export class Shopify {
 	}
 
 	async *tags({
-			page_size = default_page_size,
+			page_size = default_page_size
 		}: {
 			page_size?: number
 		} = {}): AsyncGenerator<string[]> {

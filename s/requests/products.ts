@@ -36,7 +36,6 @@ export function make_request_for_products({
 	}
 }
 
-
 export type GqlProducts = {
 	products: GqlPaginated<GqlProduct>
 }

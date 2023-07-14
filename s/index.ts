@@ -12,6 +12,7 @@ export type * from "./requests/units/product.js"
 export type * from "./requests/units/variants.js"
 
 export type * from "./requests/collections.js"
+export type * from "./requests/product.js"
 export type * from "./requests/product_recommendations.js"
 export type * from "./requests/products.js"
 export type * from "./requests/products_in_collection.js"
