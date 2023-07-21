@@ -18,7 +18,6 @@ export function make_request_for_products({
 		image_format?: ImageFormat
 	}): GraphRequest {
 
-
 	return {
 		query: gql`
 			query FetchProducts($first: Int!, $after: String, $query: String) {

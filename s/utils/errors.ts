@@ -9,3 +9,9 @@ export class ShopifyResponseError extends ShepherdError {
 	}
 }
 
+export class NotFoundError extends ShepherdError {
+	constructor(subject: string) {
+		super(`not found (${subject})`)
+	}
+}
+
