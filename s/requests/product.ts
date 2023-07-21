@@ -11,7 +11,7 @@ export function make_request_for_single_product({id, image_format}: {
 
 	return {
 		query: gql`
-			query FetchProduct($id: String!) {
+			query FetchProduct($id: ID!) {
 				product(id: $id) {
 					${product({image_format})}
 				}
