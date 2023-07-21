@@ -44,9 +44,9 @@ export class Shopify {
 			id: string
 			image_format?: ImageFormat
 		}) {
-		return this.remote.request<GqlProduct>(
+		return (await this.remote.request<{product: GqlProduct}>(
 			make_request_for_single_product({id, image_format})
-		)
+		)).product
 	}
 
 	products({
