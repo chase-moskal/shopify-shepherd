@@ -1,4 +1,5 @@
 
+import {NotFoundError} from "./utils/errors.js"
 import {Remote} from "./parts/remote/remote.js"
 import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
@@ -15,7 +16,6 @@ import {GqlCollections, make_request_for_collections} from "./requests/collectio
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./requests/products_in_collection.js"
 import {GqlProductRecommendations, make_request_for_product_recommendations} from "./requests/product_recommendations.js"
 import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
-import { NotFoundError } from "./utils/errors.js"
 
 export class Shopify {
 	remote: Remote
