@@ -1,5 +1,5 @@
 
-import {gql} from "../../utils/gql.js"
+import {gql} from "../../../utils/gql.js"
 
 export type ImageFormat = "JPG" | "PNG" | "WEBP"
 

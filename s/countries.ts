@@ -1,3 +1,3 @@
 
-export * from "./parts/countries/types/country.js"
-export * from "./parts/countries/country_library.js"
+export * from "./countries/types/country.js"
+export * from "./countries/country_library.js"

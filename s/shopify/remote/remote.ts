@@ -1,7 +1,7 @@
 
-import {defaults} from "../shopify/parts/defaults.js"
+import {defaults} from "../parts/defaults.js"
 import {RemoteSettings} from "./types/remote_settings.js"
-import {ShopifyResponseError} from "../../utils/errors.js"
+import {ShopifyResponseError} from "../parts/errors.js"
 
 export class Remote {
 	#settings: RemoteSettings

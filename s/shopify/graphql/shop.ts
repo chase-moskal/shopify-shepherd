@@ -1,5 +1,5 @@
 
-import {gql} from "../utils/gql.js"
+import {gql} from "../../utils/gql.js"
 import {GraphRequest} from "./types/graph_request.js"
 
 export function make_request_for_shop(): GraphRequest {

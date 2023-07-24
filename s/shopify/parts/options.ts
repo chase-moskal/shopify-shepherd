@@ -1,7 +1,7 @@
 
-import {Remote} from "../../remote/remote.js"
-import {ImageFormat} from "../../../graphql/units/image.js"
-import {ProductQuerySpec} from "../../queries/convert_product_query_spec_to_string.js"
+import {Remote} from "../remote/remote.js"
+import {ImageFormat} from "../graphql/units/image.js"
+import {ProductQuerySpec} from "../product_queries/convert_product_query_spec_to_string.js"
 
 export namespace Options {
 

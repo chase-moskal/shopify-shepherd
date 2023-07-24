@@ -1,5 +1,5 @@
 
-import {gql} from "../utils/gql.js"
+import {gql} from "../../utils/gql.js"
 import {GraphRequest} from "./types/graph_request.js"
 import {GqlPaginated, paginated_node} from "./units/paginated.js"
 

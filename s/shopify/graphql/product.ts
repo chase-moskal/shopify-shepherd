@@ -1,5 +1,5 @@
 
-import {gql} from "../utils/gql.js"
+import {gql} from "../../utils/gql.js"
 import {product} from "./units/product.js"
 import {ImageFormat} from "./units/image.js"
 import {GraphRequest} from "./types/graph_request.js"

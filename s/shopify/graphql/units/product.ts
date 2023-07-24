@@ -1,9 +1,9 @@
 
-import {gql} from "../../utils/gql.js"
 import {variants} from "./variants.js"
+import {gql} from "../../../utils/gql.js"
 import {GqlEdges, edges} from "./edges.js"
+import {defaults} from "../../parts/defaults.js"
 import {GqlImage, ImageFormat, image} from "./image.js"
-import {defaults} from "../../parts/shopify/parts/defaults.js"
 
 export function product({image_format}: {
 		image_format: ImageFormat

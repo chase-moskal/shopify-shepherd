@@ -1,7 +1,7 @@
 
-import {gql} from "../../utils/gql.js"
+import {gql} from "../../../utils/gql.js"
 import {GqlEdges, edges} from "./edges.js"
-import {defaults} from "../../parts/shopify/parts/defaults.js"
+import {defaults} from "../../parts/defaults.js"
 
 export function variants() {
 
