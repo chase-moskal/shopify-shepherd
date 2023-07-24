@@ -74,7 +74,7 @@ export type GqlProduct = {
 		value: string
 	}[]
 
-	featuredImage: {
+	featuredImage?: {
 		id: string
 	}
 
