@@ -1,8 +1,8 @@
 
-import {variants} from "./variants.js"
 import {gql} from "../../../tools/gql.js"
 import {GqlEdges, edges} from "./edges.js"
 import {defaults} from "../../parts/defaults.js"
+import {GqlVariants, variants} from "./variants.js"
 import {GqlImage, ImageFormat, image} from "./image.js"
 
 export function product({image_format}: {
@@ -83,5 +83,6 @@ export type GqlProduct = {
 	}>
 
 	images: GqlEdges<GqlImage>
+	variants: GqlVariants
 }
 
