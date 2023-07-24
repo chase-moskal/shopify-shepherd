@@ -3,13 +3,13 @@ import {Remote} from "./remote/remote.js"
 import {Options} from "./parts/options.js"
 import {defaults} from "./parts/defaults.js"
 import {concurrent} from "../tools/concurrent.js"
-import {paginate} from "./graphql/pagination/paginate.js"
-import {all, first} from "./graphql/pagination/helpers.js"
 import {GqlProduct} from "./graphql/units/product.js"
 import {ShopifyNotFoundError} from "./parts/errors.js"
-import {RemoteSettings} from "./remote/types/remote_settings.js"
+import {paginate} from "./graphql/pagination/paginate.js"
+import {all, first} from "./graphql/pagination/helpers.js"
 import {GqlShop, make_request_for_shop} from "./graphql/shop.js"
 import {GqlTags, make_request_for_tags} from "./graphql/tags.js"
+import {ShopifySettings} from "./remote/types/shopify_settings.js"
 import {PageGenerator} from "./graphql/pagination/types/page_generator.js"
 import {make_request_for_single_product} from "./graphql/product.js"
 import {GqlProducts, make_request_for_products} from "./graphql/products.js"
@@ -21,7 +21,7 @@ import {GqlProductRecommendations, make_request_for_product_recommendations} fro
 export class Shopify {
 	static all = all
 	static first = first
-	static setup(settings: RemoteSettings) {
+	static setup(settings: ShopifySettings) {
 		return new this({remote: new Remote(settings)})
 	}
 

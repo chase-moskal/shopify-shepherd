@@ -1,12 +1,12 @@
 
 import {defaults} from "../parts/defaults.js"
-import {RemoteSettings} from "./types/remote_settings.js"
 import {ShopifyResponseError} from "../parts/errors.js"
+import {ShopifySettings} from "./types/shopify_settings.js"
 
 export class Remote {
-	#settings: RemoteSettings
+	#settings: ShopifySettings
 
-	constructor(settings: RemoteSettings) {
+	constructor(settings: ShopifySettings) {
 		this.#settings = settings
 	}
 

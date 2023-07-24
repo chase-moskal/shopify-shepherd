@@ -24,7 +24,7 @@ export type * from "./shopify/graphql/tags.js"
 export * from "./shopify/parts/errors.js"
 
 export * from "./shopify/remote/remote.js"
-export * from "./shopify/remote/types/remote_settings.js"
+export * from "./shopify/remote/types/shopify_settings.js"
 
 export * from "./tools/concurrent.js"
 export * from "./tools/gql.js"
