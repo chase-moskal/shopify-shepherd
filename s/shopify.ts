@@ -1,5 +1,5 @@
 
-import {NotFoundError} from "./utils/errors.js"
+import {ShopifyNotFoundError} from "./utils/errors.js"
 import {Remote} from "./parts/remote/remote.js"
 import {concurrent} from "./utils/concurrent.js"
 import {ImageFormat} from "./requests/units/image.js"
@@ -58,7 +58,7 @@ export class Shopify {
 		)
 
 		if (!product)
-			throw new NotFoundError(`product ${id}`)
+			throw new ShopifyNotFoundError(`product ${id}`)
 
 		return product
 	}
