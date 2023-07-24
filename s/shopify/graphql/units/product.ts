@@ -83,6 +83,6 @@ export type GqlProduct = {
 	}>
 
 	images: GqlEdges<GqlImage>
-	variants: GqlVariants[]
+	variants: GqlVariants
 }
 
