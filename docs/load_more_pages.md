@@ -10,9 +10,10 @@ const products = shopify.products()
 
 async function my_load_more_button() {
   if (there_are_more_pages) {
-    const {value, done} = await products.next()
-    my_product_catalog = [...my_product_catalog, ...value]
-    there_are_more_pages = !done
+    const {value} = await products.next()
+    const [new_products, more] = value!
+    my_product_catalog = [...my_product_catalog, ...new_products]
+    there_are_more_pages = more
   }
 }
 

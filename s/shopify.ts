@@ -8,11 +8,11 @@ import {paginate} from "./parts/pagination/paginate.js"
 import {GqlShop, make_request_for_shop} from "./requests/shop.js"
 import {GqlTags, make_request_for_tags} from "./requests/tags.js"
 import {make_request_for_single_product} from "./requests/product.js"
-import {delegate_async_generator} from "./utils/delegate_generator.js"
 import {ShopifySettings} from "./parts/remote/types/shopify_settings.js"
+import {PageGenerator} from "./parts/pagination/types/page_generator.js"
 import {GqlProducts, make_request_for_products} from "./requests/products.js"
 import {default_page_size} from "./parts/remote/defaults/default_page_size.js"
-import {GqlCollections, make_request_for_collections} from "./requests/collections.js"
+import {GqlCollection, GqlCollections, make_request_for_collections} from "./requests/collections.js"
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./requests/products_in_collection.js"
 import {GqlProductRecommendations, make_request_for_product_recommendations} from "./requests/product_recommendations.js"
 import {ProductQuerySpec, convert_product_query_spec_to_string} from "./parts/queries/convert_product_query_spec_to_string.js"
@@ -28,13 +28,20 @@ export class Shopify {
 		return new this(new Remote(settings))
 	}
 
-	static async all<Y>(generator: AsyncGenerator<Y[]>) {
-		const all: Y[][] = []
+	static async all<N>(generator: PageGenerator<N>) {
+		const all: N[] = []
 
-		for await (const items of generator)
-			all.push(items)
+		for await (const [nodes] of generator)
+			for (const node of nodes)
+				all.push(node)
 
-		return all.flat()
+		return all
+	}
+
+	static async first<N>(generator: PageGenerator<N>) {
+		const {value} = await generator.next()
+		const [nodes] = value!
+		return nodes
 	}
 
 	async shop(): Promise<GqlShop> {
@@ -56,7 +63,7 @@ export class Shopify {
 		return product
 	}
 
-	products({
+	async *products({
 			query,
 			image_format = "WEBP",
 			page_size = default_page_size,
@@ -64,9 +71,9 @@ export class Shopify {
 			page_size?: number
 			query?: ProductQuerySpec
 			image_format?: ImageFormat
-		} = {}) {
+		} = {}): PageGenerator<GqlProduct> {
 
-		return delegate_async_generator(paginate(
+		yield* paginate(
 			async({after}) => (await this.remote.request<GqlProducts>(
 				make_request_for_products({
 					after,
@@ -75,18 +82,18 @@ export class Shopify {
 					query: convert_product_query_spec_to_string(query),
 				})
 			)).products
-		))
+		)
 	}
 
-	collections({
+	async *collections({
 			page_size = default_page_size,
 			image_format = "WEBP",
 		}: {
 			page_size?: number
 			image_format?: ImageFormat
-		} = {}) {
+		} = {}): PageGenerator<GqlCollection> {
 
-		return delegate_async_generator(paginate(
+		yield* paginate(
 			async({after}) => (await this.remote.request<GqlCollections>(
 				make_request_for_collections({
 					after,
@@ -94,23 +101,25 @@ export class Shopify {
 					image_format,
 				})
 			)).collections
-		))
+		)
 	}
 
 	async *tags({
 			page_size = default_page_size
 		}: {
 			page_size?: number
-		} = {}): AsyncGenerator<string[]> {
+		} = {}): PageGenerator<string> {
 
-		const result = await this.remote.request<GqlTags>(
-			make_request_for_tags({page_size})
-		)
+		const result = await this.remote
+			.request<GqlTags>(make_request_for_tags({page_size}))
 
-		return result.productTags.edges.map(e => e.node)
+		const tags = result.productTags.edges.map(e => e.node)
+		const more = false
+
+		yield [tags, more]
 	}
 
-	products_in_collection({
+	async *products_in_collection({
 			collection_id,
 			page_size = default_page_size,
 			image_format = "WEBP",
@@ -118,9 +127,9 @@ export class Shopify {
 			collection_id: string
 			page_size?: number
 			image_format?: ImageFormat
-		}) {
+		}): PageGenerator<GqlProduct> {
 
-		return delegate_async_generator(paginate(
+		yield* paginate(
 			async({after}) => (await this.remote.request<GqlProductsInCollection>(
 				make_request_for_products_in_collection({
 					collection_id,
@@ -129,7 +138,7 @@ export class Shopify {
 					image_format,
 				})
 			)).collection.products
-		))
+		)
 	}
 
 	async product_recommendations({

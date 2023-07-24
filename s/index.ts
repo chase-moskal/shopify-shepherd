@@ -4,6 +4,9 @@ export * from "./shopify.js"
 export * from "./parts/remote/remote.js"
 export * from "./parts/remote/types/shopify_settings.js"
 
+export * from "./parts/pagination/types/page_report.js"
+export * from "./parts/pagination/types/page_generator.js"
+
 export type * from "./requests/types/graph_request.js"
 export type * from "./requests/units/edges.js"
 export type * from "./requests/units/image.js"

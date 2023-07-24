@@ -75,12 +75,12 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
   ```
 - **loop through every page of products**
   ```ts
-  for await (const page of shopify.products())
+  for await (const [page] of shopify.products())
     console.log("page of products", page)
   ```
 - **loop through every page of collections**
   ```ts
-  for await (const page of shopify.collections())
+  for await (const [page] of shopify.collections())
     console.log("page of collections", page)
   ```
 - **fetch all products in a specific collection**
@@ -120,14 +120,21 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
 1. 🗐 **shepherd presents pagination with javascript [async generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)**  
     - paging through products
       ```ts
-      for await (const page of shopify.products({page_size: 50}))
+      for await (const [page] of shopify.products())
         console.log("page of products", page)
       ```
     - paging through collections
       ```ts
-      for await (const page of shopify.collections({page_size: 50}))
+      for await (const [page] of shopify.collections())
         console.log("page of collections", page)
       ```
+    - don't forget you can set the page_size like this
+      ```ts
+      for (await const [page] of shopify.products({page_size: 250}))
+        console.log(page)
+      ```
+      - 250 is the default page size
+      - 250 is also the maximum that shopify allows
     - you can also [manually go page-by-page](./docs/manual_paging.md)
     - or you can [implement your own "load more" button logic](./docs/load_more_pages.md)
 
@@ -139,6 +146,12 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     - fetch all collections
       ```ts
       const collections = await Shopify.all(shopify.collections())
+      ```
+
+1. 🔂 **fetch only the first page with the `Shopify.first` helper**
+    - fetch first page of products
+      ```ts
+      const products = await Shopify.first(shopify.products())
       ```
 
 <br/>

@@ -1,16 +1,20 @@
 
 [🠈 back to readme](../readme.md)
 
-# product paging: using a js generator
+# product paging: using async generators
 
 here's how to go page-by-page [(perhaps refresh yourself on js iterators and generators)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
 
 ```ts
-const products = shopify.products({page_size: 50})
+const products = shopify.products()
 
 const page1 = await products.next()
-console.log(page1.value) //⮞ [{id: "a1", ...}, ...]
-console.log(page1.done) //⮞ false
+const [products, more] = page1.value!
+console.log(products) //⮞ [{id: "a1", ...}, ...]
+console.log(more) //⮞ false
 
-const page2 = await.products.next()
+if (more) {
+  const page2 = await.products.next()
+  //...
+}
 ```
