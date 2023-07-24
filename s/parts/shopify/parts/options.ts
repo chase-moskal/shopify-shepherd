@@ -1,6 +1,6 @@
 
 import {Remote} from "../../remote/remote.js"
-import {ImageFormat} from "../../../requests/units/image.js"
+import {ImageFormat} from "../../../graphql/units/image.js"
 import {ProductQuerySpec} from "../../queries/convert_product_query_spec_to_string.js"
 
 export namespace Options {

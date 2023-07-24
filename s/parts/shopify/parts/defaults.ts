@@ -1,5 +1,5 @@
 
-import {ImageFormat} from "../../../requests/units/image.js"
+import {ImageFormat} from "../../../graphql/units/image.js"
 
 export const defaults = {
 
