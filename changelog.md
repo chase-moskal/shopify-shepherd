@@ -10,4 +10,8 @@
     const [nodes, more] = value!
     ```
     - now we rely on our own `more` instead of `done` to indicate that no more nodes are available
+- (!) rename `ShepherdError` to `ShopifyShepherdError`
+- added `Shopify.first` helper for getting only the first page
+- add `shopify.product()` for getting info on a single product
+- add `ShopifyNotFoundError`
 
