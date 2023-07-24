@@ -73,6 +73,12 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
   ```ts
   const tags = await Shopify.all(shopify.tags())
   ```
+- **fetch details about a single product**
+  ```ts
+  const product = await shopify.product({
+    id: "gid://shopify/Product/6606267416654",
+  })
+  ```
 - **loop through every page of products**
   ```ts
   for await (const [page] of shopify.products())
