@@ -1,5 +1,5 @@
 
-import {gql} from "../../../utils/gql.js"
+import {gql} from "../../../tools/gql.js"
 
 export const edges = (node: string) => gql`
 	edges {

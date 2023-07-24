@@ -2,7 +2,7 @@
 import {Remote} from "./remote/remote.js"
 import {Options} from "./parts/options.js"
 import {defaults} from "./parts/defaults.js"
-import {concurrent} from "../utils/concurrent.js"
+import {concurrent} from "../tools/concurrent.js"
 import {paginate} from "./graphql/pagination/paginate.js"
 import {all, first} from "./graphql/pagination/helpers.js"
 import {GqlProduct} from "./graphql/units/product.js"

@@ -1,6 +1,6 @@
 
 import {GqlEdges} from "./edges.js"
-import {gql} from "../../../utils/gql.js"
+import {gql} from "../../../tools/gql.js"
 
 const pageInfo = () => gql`
 	pageInfo {

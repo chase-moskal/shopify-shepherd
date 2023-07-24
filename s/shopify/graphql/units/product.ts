@@ -1,6 +1,6 @@
 
 import {variants} from "./variants.js"
-import {gql} from "../../../utils/gql.js"
+import {gql} from "../../../tools/gql.js"
 import {GqlEdges, edges} from "./edges.js"
 import {defaults} from "../../parts/defaults.js"
 import {GqlImage, ImageFormat, image} from "./image.js"

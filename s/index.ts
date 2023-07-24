@@ -26,6 +26,6 @@ export * from "./shopify/parts/errors.js"
 export * from "./shopify/remote/remote.js"
 export * from "./shopify/remote/types/remote_settings.js"
 
-export * from "./utils/concurrent.js"
-export * from "./utils/gql.js"
+export * from "./tools/concurrent.js"
+export * from "./tools/gql.js"
 
