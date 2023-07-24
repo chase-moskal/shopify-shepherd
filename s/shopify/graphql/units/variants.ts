@@ -66,6 +66,6 @@ export type GqlVariant = {
 }
 
 export type GqlVariants = {
-	variants: GqlEdges<GqlVariant>
+	edges: GqlEdges<GqlVariant>
 }
 
