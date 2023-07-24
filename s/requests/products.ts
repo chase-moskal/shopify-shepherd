@@ -4,18 +4,17 @@ import {ImageFormat} from "./units/image.js"
 import {GraphRequest} from "./types/graph_request.js"
 import {GqlProduct, product} from "./units/product.js"
 import {GqlPaginated, paginated} from "./units/paginated.js"
-import {default_page_size} from "../parts/remote/defaults/default_page_size.js"
 
 export function make_request_for_products({
 		query,
 		after,
-		image_format = "WEBP",
-		page_size = default_page_size,
+		image_format,
+		page_size,
 	}: {
-		query?: string
-		after?: string
-		page_size?: number
-		image_format?: ImageFormat
+		query: string | undefined
+		after: string | undefined
+		page_size: number
+		image_format: ImageFormat
 	}): GraphRequest {
 
 	return {

@@ -1,12 +1,12 @@
 
+import {defaults} from "../shopify/parts/defaults.js"
+import {RemoteSettings} from "./types/remote_settings.js"
 import {ShopifyResponseError} from "../../utils/errors.js"
-import {ShopifySettings} from "./types/shopify_settings.js"
-import {default_api_version} from "./defaults/default_api_version.js"
 
 export class Remote {
-	#settings: ShopifySettings
+	#settings: RemoteSettings
 
-	constructor(settings: ShopifySettings) {
+	constructor(settings: RemoteSettings) {
 		this.#settings = settings
 	}
 
@@ -18,7 +18,7 @@ export class Remote {
 		const {
 			domain,
 			storefront_access_token,
-			api_version = default_api_version,
+			api_version = defaults.api_version,
 		} = this.#settings
 
 		const url = `https://${domain}/api/${api_version}/graphql`

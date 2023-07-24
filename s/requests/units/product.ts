@@ -3,7 +3,7 @@ import {gql} from "../../utils/gql.js"
 import {variants} from "./variants.js"
 import {GqlEdges, edges} from "./edges.js"
 import {GqlImage, ImageFormat, image} from "./image.js"
-import {default_page_size} from "../../parts/remote/defaults/default_page_size.js"
+import {defaults} from "../../parts/shopify/parts/defaults.js"
 
 export function product({image_format}: {
 		image_format: ImageFormat
@@ -29,7 +29,7 @@ export function product({image_format}: {
 		updatedAt
 		vendor
 
-		options(first: ${default_page_size}) {
+		options(first: ${defaults.page_size}) {
 			name
 			values
 		}
@@ -38,13 +38,13 @@ export function product({image_format}: {
 			id
 		}
 
-		collections(first: ${default_page_size}) {
+		collections(first: ${defaults.page_size}) {
 			${edges(gql`
 				id
 			`)}
 		}
 
-		images(first: ${default_page_size}) {
+		images(first: ${defaults.page_size}) {
 			${edges(image(image_format))}
 		}
 
