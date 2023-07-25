@@ -60,7 +60,7 @@ export type GqlProduct = {
 	handle: string
 	id: string
 	isGiftCard: boolean
-	onlineStoreUrl: string
+	onlineStoreUrl?: string
 	productType: string
 	publishedAt: string
 	requiresSellingPlan: boolean

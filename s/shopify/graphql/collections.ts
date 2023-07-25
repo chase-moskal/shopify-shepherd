@@ -51,9 +51,9 @@ export type GqlCollection = {
 	id: string
 	title: string
 	updatedAt: string
-	onlineStoreUrl: string
+	onlineStoreUrl?: string
 
-	image: GqlImage
+	image?: GqlImage
 }
 
 export type GqlCollections = {
