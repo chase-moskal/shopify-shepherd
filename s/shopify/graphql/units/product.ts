@@ -71,7 +71,7 @@ export type GqlProduct = {
 
 	options: {
 		name: string
-		value: string
+		values: string[]
 	}[]
 
 	featuredImage?: {
