@@ -49,7 +49,7 @@ export class Shopify {
 
 	async *products(o: Options.Products = {}): PageGenerator<GqlProduct> {
 		yield* paginate(
-			async({after}) => (await this.remote.request<GqlProducts>(
+			async after => (await this.remote.request<GqlProducts>(
 				make_request_for_products({
 					after,
 					page_size: o.page_size ?? defaults.page_size,
@@ -64,7 +64,7 @@ export class Shopify {
 			o: Options.Collections = {}
 		): PageGenerator<GqlCollection> {
 		yield* paginate(
-			async({after}) => (await this.remote.request<GqlCollections>(
+			async after => (await this.remote.request<GqlCollections>(
 				make_request_for_collections({
 					after,
 					page_size: o.page_size ?? defaults.page_size,
@@ -87,14 +87,14 @@ export class Shopify {
 			o: Options.ProductsInCollection
 		): PageGenerator<GqlProduct> {
 		yield* paginate(
-			async({after}) => (await this.remote.request<GqlProductsInCollection>(
+			async after => (await this.remote.request<GqlProductsInCollection>(
 				make_request_for_products_in_collection({
-					collection_id: o.collection_id,
 					after,
+					collection_id: o.collection_id,
 					page_size: o.page_size ?? defaults.page_size,
 					image_format: o.image_format ?? defaults.image_format,
 				})
-			)).collection.products
+			)).collection?.products
 		)
 	}
 
