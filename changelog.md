@@ -12,6 +12,7 @@
     - now we rely on our own `more` instead of `done` to indicate that no more nodes are available
 - (!) rename `ShepherdError` to `ShopifyShepherdError`
 - (!) change Shopify constructor signature to use an options object
+- (!) make various Gql types optional, like variant.image, product.featuredImage, etc
 - i reorganized the directories and files a lot, but i don't think there are any breaking changes
 - added `Shopify.first` helper for getting only the first page
 - add `shopify.product()` for getting info on a single product
