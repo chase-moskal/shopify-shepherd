@@ -53,9 +53,9 @@ export type GqlVariant = {
 	currentlyNotInStock: boolean
 
 	price: GqlPrice
-	compareAtPrice: GqlPrice
+	compareAtPrice?: GqlPrice
 
-	image: {
+	image?: {
 		id: string
 	}
 
