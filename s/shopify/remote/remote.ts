@@ -40,6 +40,7 @@ export class Remote {
 			headers,
 			mode: "cors",
 			body: JSON.stringify(request),
+			credentials: "omit",
 		})
 
 		const result = await response.json()
