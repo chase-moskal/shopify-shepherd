@@ -108,6 +108,15 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     },
   }))
   ```
+- **fetch specific products by ids**
+  ```ts
+  const product = await shopify.specific_products({
+    ids: [
+      "gid://shopify/Product/6606267416654",
+      "gid://shopify/Product/10232153543",
+    ],
+  })
+  ```
 - **fetch product recommendations**
   ```ts
   const products = await shopify.product_recommendations({
