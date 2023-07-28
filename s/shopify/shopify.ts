@@ -14,11 +14,11 @@ import {ShopifySettings} from "./remote/types/shopify_settings.js"
 import {make_request_for_single_product} from "./graphql/product.js"
 import {PageGenerator} from "./graphql/pagination/types/page_generator.js"
 import {GqlProducts, make_request_for_products} from "./graphql/products.js"
+import {make_request_for_specific_products} from "./graphql/specific_products.js"
 import {GqlCollection, GqlCollections, make_request_for_collections} from "./graphql/collections.js"
 import {convert_product_query_spec_to_string} from "./product_queries/convert_product_query_spec_to_string.js"
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./graphql/products_in_collection.js"
 import {GqlProductRecommendations, make_request_for_product_recommendations} from "./graphql/product_recommendations.js"
-import { make_request_for_specific_products } from "./graphql/specific_products.js"
 
 export class Shopify {
 	static all = all
