@@ -18,6 +18,7 @@ import {GqlCollection, GqlCollections, make_request_for_collections} from "./gra
 import {convert_product_query_spec_to_string} from "./product_queries/convert_product_query_spec_to_string.js"
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./graphql/products_in_collection.js"
 import {GqlProductRecommendations, make_request_for_product_recommendations} from "./graphql/product_recommendations.js"
+import { make_request_for_specific_products } from "./graphql/specific_products.js"
 
 export class Shopify {
 	static all = all
@@ -107,6 +108,16 @@ export class Shopify {
 				image_format: o.image_format ?? defaults.image_format,
 			})
 		)).productRecommendations
+	}
+
+	async specific_products(o: Options.SpecificProducts) {
+		const {products} = await this.remote.request<{products: GqlProduct[]}>(
+			make_request_for_specific_products({
+				ids: o.ids,
+				image_format: o.image_format ?? defaults.image_format,
+			})
+		)
+		return products
 	}
 
 	async everything() {

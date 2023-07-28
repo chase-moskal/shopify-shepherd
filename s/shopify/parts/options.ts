@@ -40,5 +40,10 @@ export namespace Options {
 		image_format?: ImageFormat
 		intent?: "RELATED" | "COMPLEMENTARY"
 	}
+
+	export type SpecificProducts = {
+		ids: string[]
+		image_format?: ImageFormat
+	}
 }
 
