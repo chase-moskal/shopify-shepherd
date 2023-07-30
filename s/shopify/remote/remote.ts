@@ -2,6 +2,7 @@
 import {defaults} from "../parts/defaults.js"
 import {ShopifyResponseError} from "../parts/errors.js"
 import {ShopifySettings} from "./types/shopify_settings.js"
+import {GraphRequest} from "../graphql/types/graph_request.js"
 
 export class Remote {
 	#settings: ShopifySettings
@@ -10,11 +11,7 @@ export class Remote {
 		this.#settings = settings
 	}
 
-	async request<R>({query, variables}: {
-			query: string
-			variables?: {[key: string]: any}
-		}) {
-
+	async request<R>({query, variables}: GraphRequest) {
 		const {
 			domain,
 			storefront_access_token,
@@ -31,15 +28,11 @@ export class Remote {
 			"X-Shopify-Storefront-Access-Token": storefront_access_token,
 		}
 
-		const request = variables
-			? {query, variables}
-			: {query}
-
 		const response = await fetch(url, {
 			method,
 			headers,
 			mode: "cors",
-			body: JSON.stringify(request),
+			body: JSON.stringify({query, variables}),
 			credentials: "omit",
 		})
 

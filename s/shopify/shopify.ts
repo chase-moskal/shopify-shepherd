@@ -4,7 +4,7 @@ import {Options} from "./parts/options.js"
 import {defaults} from "./parts/defaults.js"
 import {concurrent} from "../tools/concurrent.js"
 import {GqlProduct} from "./graphql/units/product.js"
-import {ShopifyNotFoundError} from "./parts/errors.js"
+import {ShopifyCheckoutError, ShopifyNotFoundError} from "./parts/errors.js"
 import {all} from "./graphql/pagination/helpers/all.js"
 import {paginate} from "./graphql/pagination/paginate.js"
 import {first} from "./graphql/pagination/helpers/first.js"
@@ -19,6 +19,7 @@ import {GqlCollection, GqlCollections, make_request_for_collections} from "./gra
 import {convert_product_query_spec_to_string} from "./product_queries/convert_product_query_spec_to_string.js"
 import {GqlProductsInCollection, make_request_for_products_in_collection} from "./graphql/products_in_collection.js"
 import {GqlProductRecommendations, make_request_for_product_recommendations} from "./graphql/product_recommendations.js"
+import { GqlCheckout, GqlCheckoutCreate, make_request_for_checkout_create } from "./graphql/checkout.js"
 
 export class Shopify {
 	static all = all
@@ -118,6 +119,21 @@ export class Shopify {
 			})
 		)
 		return products
+	}
+
+	async checkout(variant_ids: string[]): Promise<GqlCheckout> {
+		const raw = await this.remote.request<GqlCheckoutCreate>(
+			make_request_for_checkout_create({variant_ids})
+		)
+
+		if (!raw?.checkoutCreate)
+			throw new ShopifyNotFoundError(`Failed to create checkout`)
+
+		const {checkout, checkoutUserErrors} = raw.checkoutCreate
+		if (checkoutUserErrors.length > 0)
+			throw new ShopifyCheckoutError(checkoutUserErrors)
+
+		return checkout
 	}
 
 	async everything() {
