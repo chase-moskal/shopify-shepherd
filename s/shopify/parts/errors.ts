@@ -1,4 +1,5 @@
-import { GqlCheckoutUserError } from "../graphql/checkout"
+
+import {GqlCheckoutUserError} from "../graphql/checkout.js"
 
 export class ShopifyShepherdError extends Error {
 	name = this.constructor.name
@@ -25,7 +26,9 @@ export class ShopifyCheckoutError extends ShopifyShepherdError {
 	}
 
 	static format(errors: GqlCheckoutUserError[]): string {
-		return errors.map(error => `(${error.code}) ${error.message}`).join(", ")
+		return errors.map(error =>
+			`(${error.code}) ${error.field.join('.')}: ${error.message}`
+		).join(";")
 	}
 }
 

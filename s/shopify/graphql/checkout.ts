@@ -17,6 +17,11 @@ export function make_request_for_checkout_create({
 		query: gql`
 			mutation CreateCheckout($input: CheckoutCreateInput!) {
 				checkoutCreate(input: $input) {
+					checkoutUserErrors {
+						code
+						field
+						message
+					}
 					checkout {
 						id
 						webUrl
@@ -39,20 +44,6 @@ export function make_request_for_checkout_create({
 export type GqlCheckout = {
 	id: string
 	webUrl: string
-	// lineItems: {
-	// 	edges: {
-	// 		node: {
-	// 			id: string
-	// 			title: string
-	// 			variant: {
-	// 				id: string
-	// 				price: string
-	// 				title: string
-	// 			}
-	// 			quantity: number
-	// 		}
-	// 	}[]
-	// }
 }
 
 export type GqlCheckoutUserError = {
