@@ -23,6 +23,7 @@ export class Remote {
 
 		const headers = {
 			"Content-Type": "application/json",
+			"Accept": "application/json",
 			"X-Sdk-Variant": "javascript",
 			"X-Sdk-Version": "2.19.0",
 			"X-Shopify-Storefront-Access-Token": storefront_access_token,
