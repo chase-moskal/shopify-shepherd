@@ -121,15 +121,18 @@ export class Shopify {
 		return products
 	}
 
-	async checkout(variant_ids: string[]): Promise<GqlCheckout> {
+	async checkout(o: Options.Checkout): Promise<GqlCheckout> {
 		const raw = await this.remote.request<GqlCheckoutCreate>(
-			make_request_for_checkout_create({variant_ids})
+			make_request_for_checkout_create({
+				line_items: o.line_items,
+			})
 		)
 
 		if (!raw?.checkoutCreate)
 			throw new ShopifyNotFoundError(`Failed to create checkout`)
 
 		const {checkout, checkoutUserErrors} = raw.checkoutCreate
+
 		if (checkoutUserErrors.length > 0)
 			throw new ShopifyCheckoutError(checkoutUserErrors)
 

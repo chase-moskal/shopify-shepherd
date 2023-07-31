@@ -2,6 +2,7 @@
 import {Remote} from "../remote/remote.js"
 import {ImageFormat} from "../graphql/units/image.js"
 import {ProductQuerySpec} from "../product_queries/convert_product_query_spec_to_string.js"
+import { CheckoutLineItem } from "../graphql/checkout.js"
 
 export namespace Options {
 
@@ -44,6 +45,10 @@ export namespace Options {
 	export type SpecificProducts = {
 		ids: string[]
 		image_format?: ImageFormat
+	}
+
+	export type Checkout = {
+		line_items: CheckoutLineItem[]
 	}
 }
 
