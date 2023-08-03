@@ -21,10 +21,9 @@ export function convert_product_query_spec_to_string({
 		)
 
 	if (terms.length)
-		segments.push(
-			terms
-				.map(term => querytext`(title:*${term}*)`)
-				.join(" AND ")
+		segments.push(terms
+			.map(term => querytext`(title:*${term}* OR tag:*${term}*)`)
+			.join(" AND ")
 		)
 
 	return segments.length
