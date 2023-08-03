@@ -123,6 +123,15 @@ it's poorly maintained, semi-abandoned, and missing features that i need for bui
     product_id: "gid://shopify/Product/6606268268622",
   })
   ```
+- **perform a checkout**
+  ```ts
+  const {web_url} = await shopify.checkout({
+    line_items: {
+      variant_id: "gid://shopify/ProductVariant/39382832709710",
+      quantity: 1,
+    },
+  })
+  ```
 
 <br/>
 

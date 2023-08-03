@@ -13,6 +13,7 @@
 - (!) rename `ShepherdError` to `ShopifyShepherdError`
 - (!) change Shopify constructor signature to use an options object
 - (!) make various Gql types optional, like variant.image, product.featuredImage, etc
+- add `shopify.checkout({line_items: []})`
 - add `shopify.specific_products({ids: []})`
 - i reorganized the directories and files a lot, but i don't think there are any breaking changes
 - added `Shopify.first` helper for getting only the first page
