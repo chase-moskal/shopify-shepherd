@@ -41,7 +41,7 @@ export default <Suite>{
 			const q = convert_product_query_spec_to_string({
 				terms: ["aaa", "bbb"],
 			})
-			expect(q).equals("((title:*aaa*) AND (title:*bbb*))")
+			expect(q).equals("((title:*aaa* OR tag:*aaa*) AND (title:*bbb* OR tag:*bbb*))")
 		},
 
 	},
@@ -52,7 +52,7 @@ export default <Suite>{
 				tags: ["aaa"],
 				terms: ["bbb"],
 			})
-			expect(q).equals("((tag:aaa)) AND ((title:*bbb*))")
+			expect(q).equals("((tag:aaa)) AND ((title:*bbb* OR tag:*bbb*))")
 		},
 
 	},
