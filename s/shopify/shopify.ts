@@ -112,13 +112,14 @@ export class Shopify {
 	}
 
 	async specific_products(o: Options.SpecificProducts) {
-		const {products} = await this.remote.request<{products: GqlProduct[]}>(
-			make_request_for_specific_products({
-				ids: o.ids,
-				image_format: o.image_format ?? defaults.image_format,
-			})
-		)
-		return products
+		return (await this.remote
+			.request<{products: (GqlProduct | null)[]}>(
+				make_request_for_specific_products({
+					ids: o.ids,
+					image_format: o.image_format ?? defaults.image_format,
+				})
+			)
+		).products
 	}
 
 	async checkout(o: Options.Checkout): Promise<GqlCheckout> {
