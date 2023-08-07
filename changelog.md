@@ -1,4 +1,13 @@
 
+## v0.2.0
+
+- (!) tweaked `shopify.specific_products` return type
+  - used to be `Promise<GqlProduct[]>`
+  - now is `Promise<(GqlProduct | null)[]>`
+- `shopify.checkout` now silently discards items with zero quantity
+
+## v0.1.1
+
 - (!) rework pagination
   - our generators no longer use `return` statements
   - instead, all values are supplied via `yield`
