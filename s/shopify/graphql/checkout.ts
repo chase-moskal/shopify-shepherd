@@ -33,7 +33,7 @@ export function make_request_for_checkout_create({
 		variables: {
 			input: {
 				lineItems: (line_items
-					.filter(remove_items_with_zero_quantity)
+					.filter(quantity_is_greater_than_zero)
 					.map(i => ({
 						variantId: i.variant_id,
 						quantity: i.quantity
@@ -44,8 +44,8 @@ export function make_request_for_checkout_create({
 	}
 }
 
-function remove_items_with_zero_quantity(item: CheckoutLineItem) {
-	return item.quantity < 1
+function quantity_is_greater_than_zero(item: CheckoutLineItem) {
+	return item.quantity > 0
 }
 
 export type GqlCheckout = {
