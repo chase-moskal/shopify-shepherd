@@ -1,4 +1,15 @@
 
+## v0.2.2
+
+- added `filters` option to `shopify.products_in_collection`
+  - previously, these collection queries had filter `available: true` hard-coded
+  - now we want to be able to display sold-out items on purpose
+  - so, we've changed the default behavior -- now, sold-out items will be returned in collection queries
+  - we've added `filters` option, where you can supply shopify graphql filters, currently, only specifying `available` is supported
+  - to return only in-stock products, provide `filters: [{available: true}]`
+  - to return only out-of-stock products, provide `filters: [{available: false}]`
+  - to return all the products, provide `filters: []` or `filters: [{}]`
+
 ## v0.2.0
 
 - (!) tweaked `shopify.specific_products` return type

@@ -1,8 +1,9 @@
 
 import {Remote} from "../remote/remote.js"
 import {ImageFormat} from "../graphql/units/image.js"
+import {CheckoutLineItem} from "../graphql/checkout.js"
+import {ProductFilters} from "../graphql/types/product_filters.js"
 import {ProductQuerySpec} from "../product_queries/convert_product_query_spec_to_string.js"
-import { CheckoutLineItem } from "../graphql/checkout.js"
 
 export namespace Options {
 
@@ -34,6 +35,7 @@ export namespace Options {
 		collection_id: string
 		page_size?: number
 		image_format?: ImageFormat
+		filters?: ProductFilters
 	}
 
 	export type ProductRecommendations = {

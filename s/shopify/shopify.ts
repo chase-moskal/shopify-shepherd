@@ -96,6 +96,7 @@ export class Shopify {
 					collection_id: o.collection_id,
 					page_size: o.page_size ?? defaults.page_size,
 					image_format: o.image_format ?? defaults.image_format,
+					filters: o.filters ?? [],
 				})
 			)).collection?.products
 		)
