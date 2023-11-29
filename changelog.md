@@ -1,6 +1,8 @@
 
 ## v0.2.2
 
+- added `sort` and `reverse` options to `shopify.products`
+  - the default value for `sort` is `BEST_SELLING`
 - added `filters` option to `shopify.products_in_collection`
   - previously, these collection queries had filter `available: true` hard-coded
   - now we want to be able to display sold-out items on purpose

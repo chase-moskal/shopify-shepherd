@@ -58,6 +58,8 @@ export class Shopify {
 					page_size: o.page_size ?? defaults.page_size,
 					image_format: o.image_format ?? defaults.image_format,
 					query: convert_product_query_spec_to_string(o.query),
+					sort: o.sort ?? "BEST_SELLING",
+					reverse: o.reverse,
 				})
 			)).products
 		)
